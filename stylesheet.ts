@@ -9,12 +9,14 @@ const colors = {
   LinearGradient: ['#38154A','#572074','#8027AF'],
   TextInputBorder: '#668899',
   MainBackground: '#38154A',
+  CardTitle: '#29363D',
+  CardDescription: '#29363D',
 }
 
 const styles = StyleSheet.create({
   SafeAreaView: {
     width: 100*vw,
-    height: 100*vh,
+    minHeight: 100*vh,
   },
   LinearGradient: {
     width: 100*vw,
@@ -101,6 +103,48 @@ const styles = StyleSheet.create({
     backgroundColor: colors.MainBackground,
     width: 100*vw,
     height: 60.5*vh,
+    position: 'absolute'
+  },
+  TitleContainer: {
+    paddingTop: 13.5*vh,
+  },
+  CardList: {
+    width: 100*vw,
+    marginBottom: 30,
+  },
+  BigCard: {
+    width: 91.5*vw,
+    backgroundColor: 'white',
+    borderRadius: 8,
+    padding: 24,
+    alignSelf: 'center',
+
+    marginBottom: 8,
+  },
+  SmallCard: {
+    width: 73.3*vw,
+    backgroundColor: 'white',
+    borderRadius: 8,
+    padding: 24,
+    alignSelf: 'center',
+  },
+  CardTitle: {
+    fontFamily: 'Lato',
+    fontWeight: '700',
+    color: colors.CardTitle,
+    fontSize: 16,
+    paddingBottom: 14,
+  },
+  CardDescription: {
+    fontFamily: 'Lato',
+    fontWeight: '400',
+    color: colors.CardDescription,
+    fontSize: 12,
+  },
+  CardContentRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingRight: 10*vw,
   }
   /***/
 });

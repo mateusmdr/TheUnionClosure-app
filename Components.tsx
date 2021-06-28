@@ -23,4 +23,24 @@ const Header: React.FC = () => {
     );
 }
 
-export {Page, Header};
+const BigCard = (props: {title: string, sources: Array<{description: string, value: number}>}) => {
+    return(
+        <View style={styles.BigCard}>
+            <Text style={styles.CardTitle}>{props.title}</Text>
+            <View>
+                {Object.entries(props.sources).map(([key,source]) => {
+                    return(
+                        <View key={key} style={styles.CardContentRow}>
+                            <Text style={styles.CardDescription}>{source.description}</Text>
+                            <Text>
+                                <Text>R$</Text>
+                                <Text>{source.value}</Text>
+                            </Text>
+                        </View>
+                    );
+                })}
+            </View>
+        </View>
+    );
+}
+export {Page, Header, BigCard};

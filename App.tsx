@@ -1,16 +1,20 @@
-import React, {useState} from 'react';
-import {View, Text, TextInput,Alert, Image} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, TextInput,Alert, Image, TouchableWithoutFeedback} from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
 
-import {Page, Header} from './Components';
+import {Page, Header, BigCard} from './Components';
 
 import {styles, colors} from './stylesheet';
 
+import getData from './getData';
+import { FlatList } from 'react-native';
+
 const App: React.FC = () => {
   const [currentPage, switchPage] = useState('login');
+  const [data, setData] = useState<any>(null);
 
-  const passwordCheck = (text) => {
+  const passwordCheck = (text: string) => {
     if (text === 'mateus') {
       Alert.alert('senha correta');
       switchPage('loading');
@@ -20,6 +24,7 @@ const App: React.FC = () => {
   }
 
   if (currentPage === 'login'){
+
     return (
       <Page>
         <LinearGradient colors={colors.LinearGradient} style={styles.LinearGradient} locations={[0,0.5,0.77]}>
@@ -47,8 +52,9 @@ const App: React.FC = () => {
 
   if (currentPage === 'loading'){
     setTimeout(() => {
+      setData(getData());
       switchPage('main');
-    },5000)
+    }, 2000);
 
     return (
       <Page>
@@ -64,10 +70,24 @@ const App: React.FC = () => {
   if (currentPage === 'main'){
     return(
       <Page>
-        <View style={styles.MainBackground}>
-          <Header/>
+        <View style={styles.MainBackground}/>
+        <Header/>
+        <View style={styles.TitleContainer}>
           <Text style={styles.MainText}>Fechamento PPPOKER</Text>
         </View>
+        <FlatList
+          style={styles.CardList}
+          data={data}
+          renderItem={({item}) => {
+            return (
+              <BigCard 
+                title={item.title} 
+                sources={item.sources}
+              />
+            );
+          }}
+          keyExtractor={(item) => item.title}
+        />
       </Page>
     );
   }
