@@ -23,7 +23,7 @@ const Header: React.FC = () => {
     );
 }
 
-const BigCard = (props: {title: string, sources: Array<{description: string, value: number}>}) => {
+const BigCard = (props: {title: string, sources: Array<{description: string, value: string, percentage: string}>}) => {
     return(
         <View style={styles.BigCard}>
             <Text style={styles.CardTitle}>{props.title}</Text>

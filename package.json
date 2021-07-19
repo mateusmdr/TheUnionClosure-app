@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "pg": "^8.6.0",
+    "query-string": "^7.0.1",
     "react": "17.0.1",
     "react-native": "0.64.1",
     "react-native-linear-gradient": "^2.5.6",
@@ -31,6 +32,7 @@
     "@types/react-native": "^0.64.5",
     "@types/react-test-renderer": "^16.9.2",
     "babel-jest": "^26.6.3",
+    "dotenv": "^10.0.0",
     "eslint": "^7.14.0",
     "jest": "^26.6.3",
     "metro-react-native-babel-preset": "^0.64.0",

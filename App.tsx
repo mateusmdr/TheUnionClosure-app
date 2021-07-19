@@ -7,19 +7,34 @@ import {Page, Header, BigCard} from './Components';
 
 import {styles, colors} from './stylesheet';
 
-import getData from './getData';
-import { FlatList } from 'react-native';
+import {getToken,getData} from './getData';
+import credentials from './credentials';
 
 const App: React.FC = () => {
   const [currentPage, switchPage] = useState('login');
   const [data, setData] = useState<any>(null);
 
+  const [token,setToken] = useState<any>("");
+
+  const [date,setDate] = useState('2021-06-07');
+
+  useEffect(() => {
+    async function load() {      
+      const newToken = await getToken();
+      setToken(newToken);
+
+      setData(await getData(newToken, date));
+      switchPage('main');
+    };
+
+    if(currentPage==="loading"){
+      load();
+    }
+  },[currentPage]);
+
   const passwordCheck = (text: string) => {
-    if (text === 'mateus') {
-      Alert.alert('senha correta');
+    if (text === credentials.APP_PASSWORD) {
       switchPage('loading');
-    }else {
-      Alert.alert('senha incorreta');
     }
   }
 
@@ -51,10 +66,6 @@ const App: React.FC = () => {
   }
 
   if (currentPage === 'loading'){
-    setTimeout(() => {
-      setData(getData());
-      switchPage('main');
-    }, 2000);
 
     return (
       <Page>
@@ -75,7 +86,13 @@ const App: React.FC = () => {
         <View style={styles.TitleContainer}>
           <Text style={styles.MainText}>Fechamento PPPOKER</Text>
         </View>
-        <FlatList
+        <Text>Token: {token}</Text>
+        <TouchableWithoutFeedback onPress={() => getData(token, date)}>
+          <View>
+            <Text>Carregar dados</Text>
+          </View>
+        </TouchableWithoutFeedback>
+        {/* <FlatList
           style={styles.CardList}
           data={data}
           renderItem={({item}) => {
@@ -87,7 +104,7 @@ const App: React.FC = () => {
             );
           }}
           keyExtractor={(item) => item.title}
-        />
+        /> */}
       </Page>
     );
   }
