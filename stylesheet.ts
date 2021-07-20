@@ -11,6 +11,10 @@ const colors = {
   MainBackground: '#38154A',
   CardTitle: '#29363D',
   CardDescription: '#29363D',
+  CardNeutralText: '#475F6B',
+  CardRevenueText: '#44B400',
+  CardExpenseText: '#C61800',
+  CardPercentage: '#AFBEC6',
 }
 
 const styles = StyleSheet.create({
@@ -141,10 +145,44 @@ const styles = StyleSheet.create({
     color: colors.CardDescription,
     fontSize: 12,
   },
-  CardContentRow: {
+  BigCardContentRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingRight: 10*vw,
+  },
+  CardDescriptionContainer: {
+    width: 36*vw,
+  },
+  CardCurrencyContainer: {
+  },
+  CardValueContainer: {
+    width: 30*vw,
+    paddingRight: 3*vw,
+  },
+  CardPercentageContainer: {
+    width: 17*vw,
+  },
+  CardMarkerContainer: {
+    width: 31*vw,
+    marginRight: -10,
+  },
+  CardRevenueText: {
+    color: colors.CardRevenueText,
+    textAlign: 'right'
+  },
+  CardExpenseText: {
+    color: colors.CardExpenseText,
+    textAlign: 'right'
+  },
+  CardNeutralText: {
+    color: colors.CardNeutralText,
+    textAlign: 'right'
+  },
+  CardPercentageText: {
+    color: colors.CardPercentage
+  },
+  CardMarkerText: {
+    textAlign: 'right',
+    color: colors.CardNeutralText,
+    fontSize: 12
   }
   /***/
 });

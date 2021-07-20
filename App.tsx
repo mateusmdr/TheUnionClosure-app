@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, TextInput,Alert, Image, TouchableWithoutFeedback} from 'react-native';
+import {View, Text, TextInput,FlatList, Image, TouchableWithoutFeedback} from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -7,23 +7,18 @@ import {Page, Header, BigCard} from './Components';
 
 import {styles, colors} from './stylesheet';
 
-import {getToken,getData} from './getData';
+import {getData} from './getData';
 import credentials from './credentials';
 
 const App: React.FC = () => {
   const [currentPage, switchPage] = useState('login');
   const [data, setData] = useState<any>(null);
 
-  const [token,setToken] = useState<any>("");
-
   const [date,setDate] = useState('2021-06-07');
 
   useEffect(() => {
-    async function load() {      
-      const newToken = await getToken();
-      setToken(newToken);
-
-      setData(await getData(newToken, date));
+    async function load() {
+      setData(await getData(date));
       switchPage('main');
     };
 
@@ -86,25 +81,24 @@ const App: React.FC = () => {
         <View style={styles.TitleContainer}>
           <Text style={styles.MainText}>Fechamento PPPOKER</Text>
         </View>
-        <Text>Token: {token}</Text>
-        <TouchableWithoutFeedback onPress={() => getData(token, date)}>
-          <View>
-            <Text>Carregar dados</Text>
-          </View>
-        </TouchableWithoutFeedback>
-        {/* <FlatList
+        <FlatList
           style={styles.CardList}
-          data={data}
-          renderItem={({item}) => {
-            return (
-              <BigCard 
-                title={item.title} 
-                sources={item.sources}
-              />
-            );
+          data={(data.bigCards).concat(data.smallCards)}
+          renderItem={({item, index}) => {
+            if(data.bigCards.indexOf(item) !== -1) {
+              return (
+                <BigCard 
+                  title={item.title} 
+                  sources={item.sources}
+                  total={item.total}
+                />
+              );
+            }
+
+            return null;
           }}
           keyExtractor={(item) => item.title}
-        /> */}
+        />
       </Page>
     );
   }

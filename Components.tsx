@@ -23,24 +23,83 @@ const Header: React.FC = () => {
     );
 }
 
-const BigCard = (props: {title: string, sources: Array<{description: string, value: string, percentage: string}>}) => {
+const BigCard = (props: {title: string, sources: Array<{description: string, value: string, percentage: string}>, total: any}) => {
+    const isGreen = (title: string,description: string) => {
+        return(
+            description.toLowerCase() === 'receita' ||
+            (description === '' && title.toLowerCase() === 'receita')||
+            (description === '' && title.toLowerCase() === 'total')
+        );
+    }
+    const isRed = (title: string,description: string) => {
+        return(
+            description.toLowerCase() === 'despesas' ||
+            (description === '' && title.toLowerCase() === 'despesas')
+        );
+    }
+
+    const colorStyle = (title: string,description: string) => {
+        if (isGreen(title,description)) return styles.CardRevenueText;
+        
+        if (isRed(title,description)) return styles.CardExpenseText;
+        
+        return styles.CardNeutralText;
+    }
     return(
         <View style={styles.BigCard}>
             <Text style={styles.CardTitle}>{props.title}</Text>
             <View>
                 {Object.entries(props.sources).map(([key,source]) => {
                     return(
-                        <View key={key} style={styles.CardContentRow}>
-                            <Text style={styles.CardDescription}>{source.description}</Text>
-                            <Text>
-                                <Text>R$</Text>
-                                <Text>{source.value}</Text>
-                            </Text>
+                        <View key={key} style={styles.BigCardContentRow}>
+                            <View style={styles.CardDescriptionContainer}>
+                                <Text style={styles.CardDescription}>{source.description}</Text>
+                            </View>
+                            <View style={styles.CardCurrencyContainer}>
+                                <Text style={colorStyle(props.title, source.description)}>{source.value!=='-' ? 'R$': ''}</Text>
+                            </View>
+                            <View style={styles.CardValueContainer}>
+                                <Text style={colorStyle(props.title, source.description)}>{source.value}</Text>
+                            </View>
+                            <View style={styles.CardPercentageContainer}>
+                                <Text style={styles.CardPercentageText}>{source.percentage}</Text>
+                            </View>
                         </View>
                     );
                 })}
+                <View key={"marker"} style={styles.BigCardContentRow}>
+                    <View style={styles.CardDescriptionContainer}></View>
+                    <View style={styles.CardCurrencyContainer}></View>
+                    <View style={styles.CardMarkerContainer}>
+                        <Text style={styles.CardMarkerText}>............</Text>
+                    </View>
+                    <View style={styles.CardPercentageContainer}></View>
+                </View>
+                <View key={"total"} style={styles.BigCardContentRow}>
+                    <View style={styles.CardDescriptionContainer}>
+                        <Text style={styles.CardDescription}>{props.total.description}</Text>
+                    </View>
+                    <View style={styles.CardCurrencyContainer}>
+                        <Text style={colorStyle(props.title, props.total.description)}>{props.total.value!=='-' ? 'R$': ''}</Text>
+                    </View>
+                    <View style={styles.CardValueContainer}>
+                        <Text style={colorStyle(props.title, props.total.description)}>{props.total.value}</Text>
+                    </View>
+                    <View style={styles.CardPercentageContainer}>
+                        <Text style={styles.CardPercentageText}>{props.total.percentage}</Text>
+                    </View>
+                </View>
             </View>
         </View>
     );
 }
+
+const SmallCard = (props: {title: string, sources: Array<{description: string, value: string}>}) => {
+    return(
+        <View style={styles.SmallCard}>
+            <Text style={styles.CardTitle}>{props.title}</Text>
+        </View>
+    );
+}
+
 export {Page, Header, BigCard};
