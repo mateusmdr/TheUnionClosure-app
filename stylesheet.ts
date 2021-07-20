@@ -9,6 +9,8 @@ const colors = {
   LinearGradient: ['#38154A','#572074','#8027AF'],
   TextInputBorder: '#668899',
   MainBackground: '#38154A',
+  DatePicker: '#475F6B',
+  DatePickerText: '#F0F3F5',
   CardTitle: '#29363D',
   CardDescription: '#29363D',
   CardNeutralText: '#475F6B',
@@ -110,11 +112,27 @@ const styles = StyleSheet.create({
     position: 'absolute'
   },
   TitleContainer: {
-    paddingTop: 13.5*vh,
+    paddingTop: 8*vh,
+  },
+  DatePicker: {
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: colors.DatePicker,
+    paddingRight: 10,
+    paddingLeft: 10,
+    color: colors.DatePicker,
+    width: 72*vw,
+    alignSelf: 'center',
+    marginBottom: 20,
+  },
+  DatePickerText: {
+    color: colors.DatePickerText,
+    fontSize: 15,
+    padding: 0
   },
   CardList: {
     width: 100*vw,
-    marginBottom: 30,
+    marginBottom: 40*vh,
   },
   BigCard: {
     width: 91.5*vw,
@@ -124,13 +142,33 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
 
     marginBottom: 8,
+
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderBottomWidth: 0,
+    shadowColor: '#45636d',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 2,
   },
   SmallCard: {
     width: 73.3*vw,
     backgroundColor: 'white',
     borderRadius: 8,
     padding: 24,
-    alignSelf: 'center',
+    alignSelf: 'flex-start',
+    marginLeft: 4.25*vw,
+    marginBottom: 8,
+
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderBottomWidth: 0,
+    shadowColor: '#45636d',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 2,
   },
   CardTitle: {
     fontFamily: 'Lato',
@@ -153,15 +191,23 @@ const styles = StyleSheet.create({
   },
   CardCurrencyContainer: {
   },
-  CardValueContainer: {
+  BigCardValueContainer: {
     width: 30*vw,
+    paddingRight: 3*vw,
+  },
+  SmallCardValueContainer: {
+    width: 22*vw,
     paddingRight: 3*vw,
   },
   CardPercentageContainer: {
     width: 17*vw,
   },
-  CardMarkerContainer: {
+  BigCardMarkerContainer: {
     width: 31*vw,
+    marginRight: -10,
+  },
+  SmallCardMarkerContainer: {
+    width: 22*vw,
     marginRight: -10,
   },
   CardRevenueText: {

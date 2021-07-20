@@ -1,25 +1,33 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, TextInput,FlatList, Image, TouchableWithoutFeedback} from 'react-native';
+import {View, Text, TextInput,FlatList, Image, Alert} from 'react-native';
+import {Picker} from '@react-native-picker/picker';
 
 import LinearGradient from 'react-native-linear-gradient';
+import dateFormat from './dateFormat';
 
-import {Page, Header, BigCard} from './Components';
+import {Page, Header, Card} from './Components';
 
 import {styles, colors} from './stylesheet';
 
-import {getData} from './getData';
+import {getAvailableDates, getData} from './getData';
 import credentials from './credentials';
 
 const App: React.FC = () => {
   const [currentPage, switchPage] = useState('login');
   const [data, setData] = useState<any>(null);
 
-  const [date,setDate] = useState('2021-06-07');
+  const [date,setDate] = useState<any>("placeholder");
+  const [availableDates, setAvailableDates] = useState([]);
 
   useEffect(() => {
     async function load() {
-      setData(await getData(date));
-      switchPage('main');
+      try{
+        const response = await getAvailableDates();
+        setAvailableDates(response);
+        switchPage('main');
+      }catch(e){
+        Alert.alert("Não foi possível obter ou formatar os dados do servidor:\n" + e)
+      }
     };
 
     if(currentPage==="loading"){
@@ -30,6 +38,8 @@ const App: React.FC = () => {
   const passwordCheck = (text: string) => {
     if (text === credentials.APP_PASSWORD) {
       switchPage('loading');
+    }else {
+      Alert.alert('Senha incorreta');
     }
   }
 
@@ -81,24 +91,60 @@ const App: React.FC = () => {
         <View style={styles.TitleContainer}>
           <Text style={styles.MainText}>Fechamento PPPOKER</Text>
         </View>
-        <FlatList
+        <View style={styles.DatePicker}>
+          <Picker
+            selectedValue={date}
+            onValueChange={async (itemValue, itemIndex) =>{
+              try{
+                setData(null);
+                setDate(itemValue);
+                setData(await getData(itemValue));
+              }catch(e){
+                Alert.alert("Não foi possível obter ou formatar os dados do servidor:\n" + e.message);
+                console.error(e);
+              }
+            }}
+            style={styles.DatePickerText}
+            dropdownIconColor={colors.DatePicker}
+          >    
+            <Picker.Item enabled={false} key="placeholder" label={"Selecione uma data:"} value="placeholder"/>
+            {availableDates.map((item: string) => {
+              return(
+                <Picker.Item 
+                  key={new Date(item).toISOString()}
+                  label={dateFormat(item,"dddd, dd/mm/yyyy")}
+                  value={new Date(item).toISOString()} 
+                />
+              );
+            })}
+          </Picker>
+        </View>
+        {data && <FlatList
           style={styles.CardList}
           data={(data.bigCards).concat(data.smallCards)}
           renderItem={({item, index}) => {
             if(data.bigCards.indexOf(item) !== -1) {
               return (
-                <BigCard 
+                <Card 
                   title={item.title} 
                   sources={item.sources}
                   total={item.total}
+                  isBig={true}
                 />
               );
             }
 
-            return null;
+            return (
+              <Card 
+                title={item.title} 
+                sources={item.sources}
+                total={item.total}
+                isBig={false}
+              />
+            );
           }}
           keyExtractor={(item) => item.title}
-        />
+        />}
       </Page>
     );
   }

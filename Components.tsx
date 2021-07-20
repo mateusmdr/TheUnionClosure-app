@@ -23,8 +23,9 @@ const Header: React.FC = () => {
     );
 }
 
-const BigCard = (props: {title: string, sources: Array<{description: string, value: string, percentage: string}>, total: any}) => {
+const Card = (props: {title: string, sources: Array<{description: string, value: string, percentage: string}>, total: any,isBig: boolean}) => {
     const isGreen = (title: string,description: string) => {
+        if (!description) return null;
         return(
             description.toLowerCase() === 'receita' ||
             (description === '' && title.toLowerCase() === 'receita')||
@@ -34,7 +35,7 @@ const BigCard = (props: {title: string, sources: Array<{description: string, val
     const isRed = (title: string,description: string) => {
         return(
             description.toLowerCase() === 'despesas' ||
-            (description === '' && title.toLowerCase() === 'despesas')
+            (description === '' && title.toLowerCase().includes('despesas'))
         );
     }
 
@@ -46,7 +47,7 @@ const BigCard = (props: {title: string, sources: Array<{description: string, val
         return styles.CardNeutralText;
     }
     return(
-        <View style={styles.BigCard}>
+        <View style={props.isBig ? styles.BigCard : styles.SmallCard}>
             <Text style={styles.CardTitle}>{props.title}</Text>
             <View>
                 {Object.entries(props.sources).map(([key,source]) => {
@@ -56,50 +57,42 @@ const BigCard = (props: {title: string, sources: Array<{description: string, val
                                 <Text style={styles.CardDescription}>{source.description}</Text>
                             </View>
                             <View style={styles.CardCurrencyContainer}>
-                                <Text style={colorStyle(props.title, source.description)}>{source.value!=='-' ? 'R$': ''}</Text>
+                                <Text style={colorStyle(props.title, source.description)}>R$</Text>
                             </View>
-                            <View style={styles.CardValueContainer}>
+                            <View style={props.isBig ? styles.BigCardValueContainer : styles.SmallCardValueContainer}>
                                 <Text style={colorStyle(props.title, source.description)}>{source.value}</Text>
                             </View>
-                            <View style={styles.CardPercentageContainer}>
+                            {props.isBig && <View style={styles.CardPercentageContainer}>
                                 <Text style={styles.CardPercentageText}>{source.percentage}</Text>
-                            </View>
+                            </View>}
                         </View>
                     );
                 })}
                 <View key={"marker"} style={styles.BigCardContentRow}>
                     <View style={styles.CardDescriptionContainer}></View>
                     <View style={styles.CardCurrencyContainer}></View>
-                    <View style={styles.CardMarkerContainer}>
+                    <View style={props.isBig ? styles.BigCardMarkerContainer : styles.SmallCardMarkerContainer}>
                         <Text style={styles.CardMarkerText}>............</Text>
                     </View>
-                    <View style={styles.CardPercentageContainer}></View>
+                    {props.isBig &&<View style={styles.CardPercentageContainer}></View>}
                 </View>
                 <View key={"total"} style={styles.BigCardContentRow}>
                     <View style={styles.CardDescriptionContainer}>
                         <Text style={styles.CardDescription}>{props.total.description}</Text>
                     </View>
                     <View style={styles.CardCurrencyContainer}>
-                        <Text style={colorStyle(props.title, props.total.description)}>{props.total.value!=='-' ? 'R$': ''}</Text>
+                        <Text style={colorStyle(props.title, props.total.description)}>R$</Text>
                     </View>
-                    <View style={styles.CardValueContainer}>
+                    <View style={props.isBig ? styles.BigCardValueContainer : styles.SmallCardValueContainer}>
                         <Text style={colorStyle(props.title, props.total.description)}>{props.total.value}</Text>
                     </View>
-                    <View style={styles.CardPercentageContainer}>
+                    {props.isBig &&<View style={styles.CardPercentageContainer}>
                         <Text style={styles.CardPercentageText}>{props.total.percentage}</Text>
-                    </View>
+                    </View>}
                 </View>
             </View>
         </View>
     );
 }
 
-const SmallCard = (props: {title: string, sources: Array<{description: string, value: string}>}) => {
-    return(
-        <View style={styles.SmallCard}>
-            <Text style={styles.CardTitle}>{props.title}</Text>
-        </View>
-    );
-}
-
-export {Page, Header, BigCard};
+export {Page, Header, Card};

@@ -8,45 +8,41 @@ const getToken = async () => {
   const username = credentials.API_USERNAME;
   const password = credentials.API_PASSWORD;
 
-  try{
-    const response = await fetch(path,{
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-          username: username,
-          password: password
-      })
-    });
+  const response = await fetch(path,{
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        username: username,
+        password: password
+    })
+  });
+  if(response.status===200){
     const token = (await response.json()).token;
     return token;
-  }catch(e) {
-    console.error(e);
   }
+  throw response.status;
 }
 
 const getAvailableDates = async () => {
   const token = await getToken();
 
   const path = credentials.API_URL + '/api/v1/xFechamentoDatas';
-  try{
-    const response = await fetch(path,{
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
-      }
-    });
-    if(response.status===200){
-      const availableDates = await response.json();
-      return availableDates.map((item: {datas: string}) => (new Date(item.datas)));
+  const response = await fetch(path,{
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
     }
-  }catch(e) {
-    console.error(e);
+  });
+  if(response.status===200){
+    const availableDates = await response.json();
+    return availableDates.map((item: {datas: string}) => (new Date(item.datas)).valueOf());
   }
+  throw response.status;
 }
 
 const getOperacionalTotal = async (token: string,date: string) => {
@@ -54,22 +50,19 @@ const getOperacionalTotal = async (token: string,date: string) => {
   const params = {data: date};
   
   const query = path +'?'+ stringify(params);
-  try{
-    const response = await fetch(query,{
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
-      }
-    });
-    if(response.status===200){
-      const operacionalTotal = await response.json();
-      return operacionalTotal;
+  const response = await fetch(query,{
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
     }
-  }catch(e) {
-    console.error(e);
+  });
+  if(response.status===200){
+    const operacionalTotal = await response.json();
+    return operacionalTotal;
   }
+  throw response.status;
 }
 
 const getOperacionalReceita = async (token: string,date: string) => {
@@ -77,22 +70,19 @@ const getOperacionalReceita = async (token: string,date: string) => {
   const params = {data: date};
   
   const query = path +'?'+ stringify(params);
-  try{
-    const response = await fetch(query,{
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
-      }
-    });
-    if(response.status===200){
-      const operacionalReceita = await response.json();
-      return operacionalReceita;
+  const response = await fetch(query,{
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
     }
-  }catch(e) {
-    console.error(e);
+  });
+  if(response.status===200){
+    const operacionalReceita = await response.json();
+    return operacionalReceita;
   }
+  throw response.status;
 }
 
 const getOperacionalDespesas = async (token: string,date: string) => {
@@ -100,22 +90,19 @@ const getOperacionalDespesas = async (token: string,date: string) => {
   const params = {data: date};
   
   const query = path +'?'+ stringify(params);
-  try{
-    const response = await fetch(query,{
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
-      }
-    });
-    if(response.status===200){
-      const operacionalDespesas = await response.json();
-      return operacionalDespesas;
+  const response = await fetch(query,{
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
     }
-  }catch(e) {
-    console.error(e);
+  });
+  if(response.status===200){
+    const operacionalDespesas = await response.json();
+    return operacionalDespesas;
   }
+  throw response.status;
 }
 
 const getOperacionalDespesasClube = async (token: string,date: string) => {
@@ -123,22 +110,19 @@ const getOperacionalDespesasClube = async (token: string,date: string) => {
   const params = {data: date};
   
   const query = path +'?'+ stringify(params);
-  try{
-    const response = await fetch(query,{
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
-      }
-    });
-    if(response.status===200){
-      const operacionalDespesasClube = await response.json();
-      return operacionalDespesasClube;
+  const response = await fetch(query,{
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
     }
-  }catch(e) {
-    console.error(e);
+  });
+  if(response.status===200){
+    const operacionalDespesasClube = await response.json();
+    return operacionalDespesasClube;
   }
+  throw response.status;
 };
 
 const getRakeTotal = async (token: string,date: string) => {
@@ -146,22 +130,19 @@ const getRakeTotal = async (token: string,date: string) => {
   const params = {data: date};
   
   const query = path +'?'+ stringify(params);
-  try{
-    const response = await fetch(query,{
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
-      }
-    });
-    if(response.status===200){
-      const rakeTotal = (await response.json())[0].xrake_total;
-      return rakeTotal;
+  const response = await fetch(query,{
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
     }
-  }catch(e) {
-    console.error(e);
+  });
+  if(response.status===200){
+    const rakeTotal = (await response.json())[0].xrake_total;
+    return rakeTotal;
   }
+  throw response.status;
 };
 
 const formatCurrency = (value: string) => {
@@ -178,7 +159,7 @@ const formatPercentage = (value: string) => {
 
 const getData = async (date:string) => {
   const token = await getToken();
-  // console.log((await getAvailableDates(token))[0].toLocaleString());
+  const sum = (prev: any, next: any) => Number(prev) + Number(next);
 
   const operacionalTotal = await getOperacionalTotal(token, date);
   const operacionalReceita = await getOperacionalReceita(token, date);
@@ -188,6 +169,19 @@ const getData = async (date:string) => {
 
   let clubs = operacionalDespesasClube.map((item: any) => item.clube)
     .filter((value:number, index:number, self:any) => self.indexOf(value) === index);
+
+  let briefDescriptions = (operacionalDespesasClube.map((item:any) => item.descricao)
+  .filter((value:number, index:number, self:any) => self.indexOf(value) === index));
+  
+  const briefSources = briefDescriptions.map((description: string)=> {
+    return {
+      description: description,
+      value: operacionalDespesasClube.filter((item:any) => item.descricao === description)
+        .map((item:any) => item.valor)
+        .reduce(sum),
+      percentage: ''
+    }
+  });
 
   const data = {
     bigCards: [
@@ -221,7 +215,7 @@ const getData = async (date:string) => {
           value: formatCurrency(operacionalTotal[1].valor),
           percentage: formatPercentage((Number(
             operacionalDespesas.map((item: any) => item.rake)
-              .reduce((prev: any, next: any) => Number(prev) + Number(next))
+              .reduce(sum)
           )/rakeTotal * 100).toString())
         }
       }
@@ -235,22 +229,36 @@ const getData = async (date:string) => {
               return {description: item.descricao, value: formatCurrency(item.valor)};
             })
           ),
-          total: '0'
+          total: {
+            description: '',
+            value: formatCurrency(
+              operacionalDespesasClube.filter((item:any) => item.clube === club)
+                .map((item: any) => item.valor)
+                .reduce(sum))
+            , percentage: ''}
         }
       })
     ).concat(
       [{
         title: 'Despesas The Union Resumo',
-        sources: []
+        sources: briefSources.map((item:any) => {
+          return {
+            description: item.description,
+            value: formatCurrency(item.value),
+            percentage: item.percentage,
+          }
+        }),
+        total: {
+          description: '',
+          value: formatCurrency(
+            briefSources.map((item:any) => item.value)
+              .reduce(sum)
+          ),
+          percentage: ''
+        }
       }]
     )
   }
-
-  // console.log("\n\nBig cards: "+JSON.stringify(data.bigCards));
-  // console.log("\n\nSmall cards: "+JSON.stringify(data.smallCards));
-  // console.log(expenses);
-  // console.log(expenses.map((item: any) => item.rake)
-  // .reduce((prev: any, next: any) => Number(prev) + Number(next)));
   return data;
 };
 
