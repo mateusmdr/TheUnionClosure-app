@@ -62,3 +62,7 @@ buck-out/
 curl.sh
 .env
 credentials.ts
+
+#Android
+*.keystore
+*.grandle
