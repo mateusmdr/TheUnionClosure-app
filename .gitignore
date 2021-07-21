@@ -65,4 +65,4 @@ credentials.ts
 
 #Android
 *.keystore
-*.grandle
+*.gradle
