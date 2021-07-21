@@ -3,7 +3,7 @@ import {View, Text, TextInput,FlatList, Image, Alert} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 
 import LinearGradient from 'react-native-linear-gradient';
-import dateFormat from './dateFormat';
+import dateFormat from 'dateformat';
 
 import {Page, Header, Card} from './Components';
 
@@ -24,6 +24,7 @@ const App: React.FC = () => {
       try{
         const response = await getAvailableDates();
         setAvailableDates(response);
+        if(date!=="placeholder") setData(await getData(date));
         switchPage('main');
       }catch(e){
         Alert.alert("Não foi possível obter ou formatar os dados do servidor:\n" + e)
@@ -86,19 +87,20 @@ const App: React.FC = () => {
   if (currentPage === 'main'){
     return(
       <Page>
-        <View style={styles.MainBackground}/>
+        <View style={data ? styles.MainBackgroundLoaded : styles.MainBackgroundUnloaded}/>
         <Header/>
         <View style={styles.TitleContainer}>
           <Text style={styles.MainText}>Fechamento PPPOKER</Text>
         </View>
         <View style={styles.DatePicker}>
           <Picker
+            mode={'dropdown'}
             selectedValue={date}
             onValueChange={async (itemValue, itemIndex) =>{
               try{
                 setData(null);
                 setDate(itemValue);
-                setData(await getData(itemValue));
+                switchPage('loading');
               }catch(e){
                 Alert.alert("Não foi possível obter ou formatar os dados do servidor:\n" + e.message);
                 console.error(e);
@@ -112,7 +114,7 @@ const App: React.FC = () => {
               return(
                 <Picker.Item 
                   key={new Date(item).toISOString()}
-                  label={dateFormat(item,"dddd, dd/mm/yyyy")}
+                  label={dateFormat(item,"dd/mm/yyyy")}
                   value={new Date(item).toISOString()} 
                 />
               );

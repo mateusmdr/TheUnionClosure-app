@@ -105,10 +105,16 @@ const styles = StyleSheet.create({
   /***/
 
   /*Main*/
-  MainBackground: {
+  MainBackgroundLoaded: {
     backgroundColor: colors.MainBackground,
     width: 100*vw,
     height: 60.5*vh,
+    position: 'absolute'
+  },
+  MainBackgroundUnloaded : {
+    backgroundColor: colors.MainBackground,
+    width: 100*vw,
+    height: 100*vh,
     position: 'absolute'
   },
   TitleContainer: {
@@ -128,11 +134,10 @@ const styles = StyleSheet.create({
   DatePickerText: {
     color: colors.DatePickerText,
     fontSize: 15,
-    padding: 0
   },
   CardList: {
     width: 100*vw,
-    marginBottom: 40*vh,
+    marginBottom: 35*vh,
   },
   BigCard: {
     width: 91.5*vw,

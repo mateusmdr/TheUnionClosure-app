@@ -17,7 +17,7 @@ const Header: React.FC = () => {
             <Image source={require('./assets/logo.png')} style={styles.HeaderLogo}/>
             <View>
                 <Text style={styles.HeaderText}>Empresa The Union</Text>
-                <Text style={styles.HeaderText}>00.000.000/0000-00</Text>
+                <Text style={styles.HeaderText}>35.447.430/0001-30</Text>
             </View>
         </View>
     );
@@ -25,9 +25,8 @@ const Header: React.FC = () => {
 
 const Card = (props: {title: string, sources: Array<{description: string, value: string, percentage: string}>, total: any,isBig: boolean}) => {
     const isGreen = (title: string,description: string) => {
-        if (!description) return null;
         return(
-            description.toLowerCase() === 'receita' ||
+            (description.toLowerCase() === 'receita') ||
             (description === '' && title.toLowerCase() === 'receita')||
             (description === '' && title.toLowerCase() === 'total')
         );
