@@ -117,8 +117,12 @@ const styles = StyleSheet.create({
     height: 100*vh,
     position: 'absolute'
   },
-  TitleContainer: {
+  TitleContainerLoaded: {
     paddingTop: 8*vh,
+  },
+  TitleContainerUnloaded: {
+    paddingTop: 25*vh,
+    paddingBottom: 4*vh,
   },
   DatePicker: {
     borderRadius: 6,
@@ -134,6 +138,7 @@ const styles = StyleSheet.create({
   DatePickerText: {
     color: colors.DatePickerText,
     fontSize: 15,
+    textAlign: 'center',
   },
   CardList: {
     width: 100*vw,

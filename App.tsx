@@ -89,7 +89,7 @@ const App: React.FC = () => {
       <Page>
         <View style={data ? styles.MainBackgroundLoaded : styles.MainBackgroundUnloaded}/>
         <Header/>
-        <View style={styles.TitleContainer}>
+        <View style={data ? styles.TitleContainerLoaded : styles.TitleContainerUnloaded}>
           <Text style={styles.MainText}>Fechamento PPPOKER</Text>
         </View>
         <View style={styles.DatePicker}>
