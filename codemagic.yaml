@@ -1,0 +1,5 @@
+workflows:
+  react-native:
+    name: Build for iOS
+    scripts:
+        - echo "Hello World!"
