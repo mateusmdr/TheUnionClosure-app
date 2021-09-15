@@ -26,7 +26,7 @@ workflows:
           yarn install
       - name: Install CocoaPods dependencies
         script: |
-          cd ios && pod install --repo-update
+          cd ios && pod install
       - name: Create credentials file
         script: |
           echo "$APP_CREDENTIALS" > credentials.ts
