@@ -21,6 +21,7 @@
     "bundle-android-grandlew": "cd android && ./gradlew bundleRelease"
   },
   "dependencies": {
+    "@react-native-community/cli-platform-ios": "^5.0.2",
     "@react-native-picker/picker": "^1.16.3",
     "@types/dateformat": "^3.0.1",
     "dateformat": "^4.5.1",
