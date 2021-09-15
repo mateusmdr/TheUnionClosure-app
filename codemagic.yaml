@@ -52,12 +52,9 @@ workflows:
       xcode: latest
       cocoapods: default
     scripts:
-      - name: Install npm dependencies
+      - name: Install yarn dependencies
         script: |
-          npm install
-      - name: Get CocoaPods version
-        script: |
-          pod --version
+          yarn install
       - name: Install CocoaPods dependencies
         script: |
           cd ios && pod install --repo-update
