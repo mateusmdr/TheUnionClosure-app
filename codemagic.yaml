@@ -48,6 +48,8 @@ workflows:
           IFJTQSBQUklWQVRFIEtFWS0tLS0tCg==
         BUNDLE_ID: "com.autenlab.theunionclosure"
         APP_STORE_APP_ID: 1585983538
+        APP_CREDENTIALS: |
+          Y29uc3QgY3JlZGVudGlhbHMgPSB7CiAgQVBJX1VSTDogJ2h0dHBzOi8vdGhldW5pb25wb2tlci50aycsCiAgQVBJX1VTRVJOQU1FOiAnZGFydGggdmFkZXInLAogIEFQSV9QQVNTV09SRDogJzRwUUlCK25KZSVGZHpjNil7U091RDN2NlBmLkhePTx8JywKICBBUFBfUEFTU1dPUkQ6ICd0dTJrMjEnLAp9OwoKZXhwb3J0IGRlZmF1bHQgY3JlZGVudGlhbHM7
       node: lts
       xcode: latest
       cocoapods: default
@@ -58,6 +60,9 @@ workflows:
       - name: Install CocoaPods dependencies
         script: |
           cd ios && pod install --repo-update
+      - name: Create credentials file
+        script: |
+          echo "$APP_CREDENTIALS" > credentials.ts
       - name: Bundle react-native application for iOS
         script: |
           yarn bundle-ios
