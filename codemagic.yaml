@@ -38,7 +38,7 @@ workflows:
           xcode-project use-profiles --warn-only
       - name: Build ipa for distribution
         script: |
-          xcode-project build-ipa --workspace "$FCI_BUILD_DIR/ios/$XCODE_WORKSPACE" --scheme "$XCODE_SCHEME"
+          xcode-project build-ipa --workspace "$FCI_BUILD_DIR/$XCODE_WORKSPACE" --scheme "$XCODE_SCHEME"
     triggering:
       events:
         - push
