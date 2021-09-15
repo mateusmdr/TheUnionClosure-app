@@ -1,5 +1,87 @@
 workflows:
-  react-native:
+  react-native-ios:
     name: Build for iOS
+    max_build_duration: 120
+    environment:
+      vars:
+        XCODE_WORKSPACE: "ios/TheUnionClosure.xcworkspace"
+        XCODE_SCHEME: "TheUnionClosure"
+        APPLE_ID: Encrypted(bWF0ZXVzLnJlemVuZGVAYXV0ZW5sYWIuY29t)
+        APP_STORE_CONNECT_ISSUER_ID: Encrypted(MWU2YTY0MjQtZmZmNy00ZWZjLWE4OGItYTk1NTcxNzUzMWVh)
+        APP_STORE_CONNECT_KEY_IDENTIFIER: Encrypted(QkxHQjQ1WVBBSg==)
+        APP_STORE_CONNECT_PRIVATE_KEY: | 
+          Encrypted(LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JR1RBZ0VBTUJNR0J5cUdTTTQ5QWdFR0NDcUdT
+          TTQ5QXdFSEJIa3dkd0lCQVFRZzJuSGJpNnNaM3h0cGFzZ08KWEJlZkw4aWxNVmhQdnBDc2NOU0xh
+          QUtnNTl1Z0NnWUlLb1pJemowREFRZWhSQU5DQUFTRDNrWDRQdW16VCtvagphZlZJWXorbEF6NHhx
+          eUZueTFLNko5U3JNemFoMXhjbUgxZjNzSDZ5RU9MMlVvdFlVSElCNnVxYURFbVU4amcxCmZIU3RF
+          UmsyCi0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0=)
+        CERTIFICATE_PRIVATE_KEY: | 
+          Encrypted(LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFb3dJQkFBS0NBUUVBcTNXLzZNTUNE
+          Z1RnWGZaTlViSENRQTBPN3k5VC9hQ3Y1eXA0S2R4eWZNd28zZHVlCk92MjVWUTY4aG5PaVpyWEZW
+          MnNaQVVhVXFaL05sY2t5M0ZpVFlsaFVuUEp0OHU3Y0RocXB4dVdKRkM4TTkvSFMKVzV1UUZTVHJM
+          OFhzRGRONkJtaDdlakJ6emhWbHBCTTl3Nm84bHJSM1pxYW1oOXJlN1R2LzRMRG1kRjZLYzlNMQpN
+          N0Mxd1pzUlZPaTJtMTdYQVRXNkZ0SGdnVkZmOWFXOFJRNmdrOHNCQjJ6KzN5R010NVBFM1JiOHY1
+          OUdQNDg2CmNieitVWW53SUNHQXpPOXl2NEJkMUIxTHdXV2pVcE92VDRua2FxWS96Zjg4a3U0T1VD
+          aFlwUUNtTld1bHNHZFoKU1BLV0c1SlpvbGsxZ05XTThiMWErWXVXUVVxVTI0bGh3NVptalFJREFR
+          QUJBb0lCQURpdGsrSzlrOUJPakZ5RApMc3Z5bHVQVmJUcGp5ci9zZmpsTU1LeWwwckt1U2xRTVpT
+          SGEvWWpBZGxGN3FCT0x3dEJDOXVFVkU4OStvOWIvCnkzQkxWMjBMQmUxYnRqeTMrTVl3eWk2VmNk
+          cmFNczlEZ09ZSFpubVcycWZRSlZmc3NFbXVBQ05FSVFQZXp0cU8KQWJ6TWFYcm43UkJoeG1yaVR3
+          N2M1cGkvNFc1Vng1bXJMODM5Z1F6WXNqeURMdEt6eTloWmtXMHJwR3ZCcWZhRQplcjlSTWlqUml3
+          MmRRY3ZyNzcrd282ZVhDbWhPN2dBTzhJODNUckgzVE1ZOGRxclgwZDgrM2RhaUdhK0ZybldZCjV4
+          bjFpT3hnT2lER0oyQWpRb0VQbVczVzBiMHY0NGVVSElDMFJla3BuaFpXZjAyVk5TUWQ0dkpSdjRO
+          VVFyemkKYXRSZExBRUNnWUVBMkVDOVkvU3BVSTl6UG5nUDRONHNOcWJoVmMyUGxoQ0tvY1ltRU50
+          T1AyRVNsaks2YXdxdwpBMmlqek1xTERtWmxTaGVza0dQZjgwSWV5QkRhd09JQXFxM2tYbHg0N1hi
+          S1FiM2JvYm96Qnh6Q3ZpN0lpd2w1CjZTdEZRUTBXb0R3c2xPRjFndVZKWUc0c210ZDcxM2N6UjAx
+          N014dC9QZmp4SGoyMzh4b3kySlVDZ1lFQXl2bGkKMklMdnhlQ05MUHk4Vnk2YnhDSHNTYnlnUFU2
+          c0JEdk9meUJBWExzdlM5VmJDNWRtbnhwZkdqSmZlZU8wUFFUQgpNUkpPNHo3K1JITCs4Sng4bjFY
+          YXphMVdxRExLckNGTXMxMEpUOXVWSjV6eEJRZ0JLTi9hRlBvSnlyOWZNdkVUCmNZN3kzbHVKTkdU
+          bThYYXNjeGpnNC8wd2IzcG9oR2V1N2pRU1FCa0NnWUVBdnlpYlFkeG9QdnBQV1Ewd25BcEkKOHhh
+          WllndVB2WXRwd0k4ejN2cTlOSEZPeU02VzAwQmpUdUFVeTFiUGpTOGVvbHhEQW5BRzZ6V3JtQmF1
+          Q0lxLwpKQ0VMR2c2TUp2MDIxTjVMWTY4QXBHemNDTm02RkkyUDRubUpnbk5iYU5GSVoyTFZTWnY5
+          UE95bktVa0tBL0V1CnR2emF4dGFycDlDQzg4U0M4clpaOC9FQ2dZQVl4dGlLRlhHdmRmbkZ4QlE1
+          a0RiemVqQ2R6NmkvMHhxc2FhQ0wKWkNSM0xXSlluM0s5dDMyUGJtaXRpZmlkcUc0WUJMeVFnT3Vn
+          VWRBNEN0R1VEWVlvN1JJSWlXQktwK2lWbW5zQwphaGo0NXBVT2dObnJBMDhnN2pKdzNSVFU2d2R6
+          OEhtdkl3UUNvS25lKzNJMWg0Y0ZoY1B1RUxvWTRaaGdrVWVKClRGSHVBUUtCZ0c4RGNweGZhRWxq
+          S3hXT0N3Y0xMQnlpSkt0YTl0bkdVeGdMVWpTZ0Z2cllTN1RMUExhTWVncVQKSEI2NDcydWorb1kz
+          T1BMNUgwZUJpcDFwQVd4SlpaZHNSSFFkNEk2ajZmS1JXNGRtU3B1dnNRS1cvRC9lT2xzTgpFQXgr
+          Rm9ZNS9zdGVjRGhjWWN6Z0trS251V012aG1yY1VXMW9oUEM4dkU3S1NhY2Z3VDA5Ci0tLS0tRU5E
+          IFJTQSBQUklWQVRFIEtFWS0tLS0tCg==)
+        BUNDLE_ID: "com.autenlab.theunionclosure"
+        APP_STORE_APP_ID: 1585983538
+      node: lts
+      xcode: latest
+      cocoapods: default
     scripts:
-        - echo "Hello World!"
+      - name: Install npm dependencies
+        script: |
+          npm install
+      - name: Install CocoaPods dependencies
+        script: |
+          cd ios && pod install
+      - name: Set up keychain to be used for codesigning using Codemagic CLI 'keychain' command
+        script: |
+          keychain initialize
+      - name: Fetch signing files
+        script: |
+          # For information about Codemagic CLI commands visit: https://github.com/codemagic-ci-cd/cli-tools/blob/master/docs/app-store-connect/README.md
+          # For details about the --type paramater below - https://github.com/codemagic-ci-cd/cli-tools/blob/master/docs/app-store-connect/fetch-signing-files.md#--typeios_app_adhoc--ios_app_development--ios_app_inhouse--ios_app_store--mac_app_development--mac_app_direct--mac_app_store--mac_catalyst_app_development--mac_catalyst_app_direct--mac_catalyst_app_store--tvos_app_adhoc--tvos_app_development--tvos_app_inhouse--tvos_app_store
+          app-store-connect fetch-signing-files "$BUNDLE_ID" --type IOS_APP_STORE --create
+      - name: Use system default keychain
+        script: |
+          keychain add-certificates
+      - name: Set up code signing settings on Xcode project
+        script: |
+          xcode-project use-profiles --warn-only
+      - name: Bundle react-native application for iOS
+        script: |
+          npm bundle-ios
+      - name: Build ipa for distribution
+        script: |
+          xcode-project build-ipa --workspace "$FCI_BUILD_DIR/ios/$XCODE_WORKSPACE" --scheme "$XCODE_SCHEME" 
+    triggering:
+        events:
+          - push
+        branch_patterns:
+          - pattern: develop
+            include: true
+            source: true
