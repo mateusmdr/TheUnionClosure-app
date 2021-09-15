@@ -8,7 +8,7 @@ workflows:
       vars:
         XCODE_WORKSPACE: "ios/TheUnionClosure.xcworkspace"
         XCODE_SCHEME: "TheUnionClosure"
-        APPLE_ID: bWF0ZXVzLnJlemVuZGVAYXV0ZW5sYWIuY29t
+        APPLE_ID: Encrypted(bWF0ZXVzLnJlemVuZGVAYXV0ZW5sYWIuY29t)
         APP_STORE_CONNECT_ISSUER_ID: Encrypted(MWU2YTY0MjQtZmZmNy00ZWZjLWE4OGItYTk1NTcxNzUzMWVh)
         APP_STORE_CONNECT_KEY_IDENTIFIER: Encrypted(QkxHQjQ1WVBBSg==)
         APP_STORE_CONNECT_PRIVATE_KEY: |
