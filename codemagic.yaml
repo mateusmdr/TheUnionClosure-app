@@ -82,6 +82,6 @@ workflows:
         events:
           - push
         branch_patterns:
-          - pattern: develop
+          - pattern: master
             include: true
             source: true
