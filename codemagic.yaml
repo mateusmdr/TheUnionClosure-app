@@ -3,6 +3,8 @@ workflows:
     name: Build for iOS
     max_build_duration: 120
     environment:
+      groups:
+        - dev
       vars:
         XCODE_WORKSPACE: "ios/TheUnionClosure.xcworkspace"
         XCODE_SCHEME: "TheUnionClosure"
