@@ -6,7 +6,7 @@ workflows:
       groups:
         - dev
       vars:
-        XCODE_WORKSPACE: "ios/TheUnionClosure.xcworkspace"
+        XCODE_WORKSPACE: "TheUnionClosure.xcworkspace"
         XCODE_SCHEME: "TheUnionClosure"
       node: lts
       xcode: latest
@@ -38,7 +38,18 @@ workflows:
           xcode-project use-profiles --warn-only
       - name: Build ipa for distribution
         script: |
-          xcode-project build-ipa --workspace "$FCI_BUILD_DIR/$XCODE_WORKSPACE" --scheme "$XCODE_SCHEME"
+          xcode-project build-ipa --workspace "$FCI_BUILD_DIR/ios/$XCODE_WORKSPACE" --scheme "$XCODE_SCHEME"
+    publishing:
+      app_store_connect:
+          api_key: $APP_STORE_CONNECT_PRIVATE_KEY      # Contents of the API key, can also reference environment variable such as $APP_STORE_CONNECT_PRIVATE_KEY
+          key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER    # Alphanumeric value that identifies the API key, can also reference environment variable such as $APP_STORE_CONNECT_KEY_IDENTIFIER
+          issuer_id: $APP_STORE_CONNECT_ISSUER_ID       # Alphanumeric value that identifies who created the API key, can also reference environment variable such as $APP_STORE_CONNECT_ISSUER_ID
+          submit_to_testflight: true
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
     triggering:
       events:
         - push
