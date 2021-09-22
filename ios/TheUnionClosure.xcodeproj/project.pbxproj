@@ -175,15 +175,12 @@
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
+                        DevelopmentTeam = W9S4DPM386;
 					};
 					13B07F861A680F5B00A75B9A = {
 						LastSwiftMigration = 1120;
-					};
-                    97C146ED1CF9000F007C117D = {
-                        CreatedOnToolsVersion = 7.3.1;
-                        LastSwiftMigration = 0910;
                         DevelopmentTeam = W9S4DPM386;
-                    };
+					};
 				};
 			};
 			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "TheUnionClosure" */;
