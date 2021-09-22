@@ -11,6 +11,11 @@ workflows:
       node: lts
       xcode: latest
       cocoapods: default
+    cache:
+      cache_paths:
+        - ~/.pub-cache
+        - $HOME/Library/Caches/CocoaPods
+        - $FCI_BUILD_DIR/node_modules
     scripts:
       - name: Install yarn dependencies
         script: |
@@ -50,10 +55,6 @@ workflows:
       - /tmp/xcodebuild_logs/*.log
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
-    cache:
-      cache_paths:
-        - $HOME/Library/Caches/CocoaPods
-        - $FCI_BUILD_DIR/node_modules
     triggering:
       events:
         - push
