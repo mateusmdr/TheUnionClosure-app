@@ -13,13 +13,6 @@ workflows:
       xcode: latest
       cocoapods: default
     scripts:
-      - name: Clear Pod Cache
-        script: |
-          rm -rf ~/Library/Caches/CocoaPods &&
-          rm -rf Pods &&
-          rm -rf ~/Library/Developer/Xcode/DerivedData/* &&
-          pod deintegrate &&
-          pod setup
       - name: Install yarn dependencies
         script: |
           yarn install
