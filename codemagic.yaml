@@ -6,7 +6,7 @@ workflows:
       groups:
         - dev
       vars:
-        XCODE_WORKSPACE: "TheUnionClosure.xcworkspace"
+        XCODE_PROJECT: "TheUnionClosure.xcodeproj"
         XCODE_SCHEME: "TheUnionClosure"
         BUNDLE_ID: "com.autenlab.theunionclosure"
       node: lts
@@ -44,7 +44,7 @@ workflows:
           xcode-project use-profiles --warn-only
       - name: Build ipa for distribution
         script: |
-          xcode-project build-ipa --workspace "$FCI_BUILD_DIR/ios/$XCODE_WORKSPACE" --scheme "$XCODE_SCHEME"  --archive-flags=-allowProvisioningUpdates
+          xcode-project build-ipa --project "$FCI_BUILD_DIR/ios/$XCODE_PROJECT"  --archive-flags=-allowProvisioningUpdates
     publishing:
       app_store_connect:
           api_key: $APP_STORE_CONNECT_PRIVATE_KEY      # Contents of the API key, can also reference environment variable such as $APP_STORE_CONNECT_PRIVATE_KEY
