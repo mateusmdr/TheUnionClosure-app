@@ -7,6 +7,7 @@ workflows:
         - dev
       vars:
         BUNDLE_ID: "com.autenlab.theunionclosure"
+        XCODE_WORKSPACE: "TheUnionClosure.xcworkspace"
       node: lts
       xcode: latest
       cocoapods: default
@@ -37,7 +38,7 @@ workflows:
           xcode-project use-profiles --warn-only
       - name: Build ipa for distribution
         script: |
-          xcode-project build-ipa --archive-flags=-allowProvisioningUpdates
+          xcode-project build-ipa --workspace $XCODE_WORKSPACE --archive-flags=-allowProvisioningUpdates
     publishing:
       app_store_connect:
           api_key: $APP_STORE_CONNECT_PRIVATE_KEY      # Contents of the API key, can also reference environment variable such as $APP_STORE_CONNECT_PRIVATE_KEY
