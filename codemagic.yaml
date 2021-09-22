@@ -7,7 +7,6 @@ workflows:
         - dev
       vars:
         XCODE_WORKSPACE: "TheUnionClosure.xcworkspace"
-        XCODE_SCHEME: "TheUnionClosure"
       node: lts
       xcode: latest
       cocoapods: default
@@ -35,10 +34,10 @@ workflows:
           keychain add-certificates
       - name: Set up code signing settings on Xcode project
         script: |
-          xcode-project use-profiles --warn-only
+          xcode-project use-profiles
       - name: Build ipa for distribution
         script: |
-          xcode-project build-ipa --workspace "$FCI_BUILD_DIR/ios/$XCODE_WORKSPACE" --scheme "$XCODE_SCHEME"
+          xcode-project build-ipa --workspace "$FCI_BUILD_DIR/ios/$XCODE_WORKSPACE"
     publishing:
       app_store_connect:
           api_key: $APP_STORE_CONNECT_PRIVATE_KEY      # Contents of the API key, can also reference environment variable such as $APP_STORE_CONNECT_PRIVATE_KEY
@@ -50,6 +49,10 @@ workflows:
       - /tmp/xcodebuild_logs/*.log
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+    cache:
+      cache_paths:
+        - $HOME/Library/Caches/CocoaPods
+        - $FCI_BUILD_DIR/node_modules
     triggering:
       events:
         - push
