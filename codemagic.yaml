@@ -8,6 +8,7 @@ workflows:
       vars:
         XCODE_WORKSPACE: "TheUnionClosure.xcworkspace"
         XCODE_SCHEME: "TheUnionClosure"
+        BUNDLE_ID: "com.autenlab.theunionclosure"
       node: lts
       xcode: latest
       cocoapods: default
@@ -34,7 +35,7 @@ workflows:
           keychain initialize
       - name: Fetch signing files
         script: |
-          app-store-connect fetch-signing-files "$(xcode-project detect-bundle-id)" --type IOS_APP_DEVELOPMENT --create
+          app-store-connect fetch-signing-files "$BUNDLE_ID" --type IOS_APP_DEVELOPMENT --create
       - name: Use system default keychain
         script: |
           keychain add-certificates
