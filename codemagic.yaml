@@ -17,15 +17,15 @@ workflows:
         - $FCI_BUILD_DIR/node_modules
         - $HOME/Library/Developer/Xcode/DerivedData
     scripts:
+      - name: Read credentials
+        script: |
+          echo "$APP_CREDENTIALS"
       - name: Install yarn dependencies
         script: |
           yarn install
       - name: Install CocoaPods dependencies
         script: |
           cd ios && pod install
-      - name: Create credentials file
-        script: |
-          echo "$APP_CREDENTIALS" > credentials.ts
       - name: Bundle react-native application for iOS
         script: |
           yarn bundle-ios
