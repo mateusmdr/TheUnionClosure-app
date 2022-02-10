@@ -50,6 +50,7 @@ const Main = ({availableDates, setCurrentPage, setDate, date, data}) => {
             style={styles.CardList}
             data={(data.bigCards).concat(data.smallCards)}
             renderItem={({item}) => {
+				if(item.sources.length === 0) return null;
                 if(data.bigCards.indexOf(item) !== -1) {
                 return (
                     <Card 

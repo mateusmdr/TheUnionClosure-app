@@ -6,6 +6,7 @@ import LoadingPage from './pages/Loading';
 import MainPage from './pages/Main';
 
 import Lato from './assets/fonts/Lato-Regular.ttf';
+import Lato_Bold from './assets/fonts/Lato-Bold.ttf';
 
 export default () => {
 	const [currentPage, setCurrentPage] = useState('login');
@@ -13,7 +14,7 @@ export default () => {
 	const [date, setDate] = useState(null);
 	const [data, setData] = useState(null);
 
-	const [loaded] = useFonts({Lato});
+	const [loaded] = useFonts({Lato, Lato_Bold});
 	  
 	if (!loaded) {
 		return null;

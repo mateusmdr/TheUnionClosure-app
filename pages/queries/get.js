@@ -138,7 +138,7 @@ const getRakeTotal = async (token,date) => {
 };
 
 const formatCurrency = (value) => {
-	if(!value) return '-';
+	if(!value) return '0,00';
 	const converted = Number(value);
 	if (converted === 0) return '-';
 

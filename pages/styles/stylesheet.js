@@ -1,4 +1,4 @@
-import {StyleSheet, Dimensions, StatusBar, Platform} from 'react-native';
+import {StyleSheet, Dimensions, StatusBar} from 'react-native';
 
 const window = Dimensions.get('window');
 
@@ -22,8 +22,8 @@ const colors = {
 const styles = StyleSheet.create({
   SafeAreaView: {
     width: 100 * vw,
-    minHeight: 100 * vh,
-    marginTop: StatusBar.currentHeight
+    minHeight: 100 * vh + StatusBar.currentHeight,
+    marginTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
   },
   LinearGradient: {
     width: 100 * vw,
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   MainText: {
-    fontFamily: 'Lato',
+    fontFamily: 'Lato_Bold',
     color: 'white',
     fontWeight: 'bold',
     fontSize: 24,
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   MainBackgroundLoaded: {
     backgroundColor: colors.MainBackground,
     width: 100 * vw,
-    height: Platform.OS === 'ios' ? undefined : 60.5 * vh,
+    height: 60.5 * vh,
     position: 'absolute',
   },
   MainBackgroundUnloaded: {
@@ -119,36 +119,38 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   TitleContainerLoaded: {
-    paddingTop: Platform.OS === 'ios' ? 3*vh : 8 * vh,
+    paddingTop: Platform.OS === 'ios' ? 4*vh : 8 * vh,
   },
   TitleContainerUnloaded: {
     paddingTop: 25 * vh,
     paddingBottom: 4 * vh,
   },
   DatePicker: {
-    borderRadius: 6,
-    borderWidth: 1,
+    borderRadius: Platform.OS === 'ios' ? undefined : 6,
+    borderWidth: Platform.OS === 'ios' ? undefined : 1,
     borderColor: colors.DatePicker,
     paddingRight: 10,
     paddingLeft: 10,
     color: colors.DatePicker,
     width: 72 * vw,
     alignSelf: 'center',
-    marginBottom: Platform.OS === 'ios' ? 10 : 20,
-    height: Platform.OS === 'ios' ? 10*vh : undefined
+    marginBottom: Platform.OS === 'ios' ? 0 : 40,
   },
   DatePickerText: {
     color: colors.DatePickerText,
-    fontSize: Platform.OS === 'ios' ? 12 : 15,
+    fontSize: 15,
     textAlign: 'center',
-    height: Platform.OS === 'ios' ? 10*vh : undefined
   },
   PickerItem: {
     color: 'white',
+    padding: 0,
+    height: 20*vh,
+    fontSize: 15
   },
   CardList: {
     width: 100 * vw,
-    marginBottom: 35 * vh,
+    marginBottom: 40 * vh,
+    height: 'auto'
   },
   BigCard: {
     width: 91.5 * vw,
@@ -206,7 +208,7 @@ const styles = StyleSheet.create({
     width: 36 * vw,
   },
   BigCardValueContainer: {
-    width: 30 * vw,
+    width: 25 * vw,
     paddingRight: 3 * vw,
   },
   SmallCardValueContainer: {
@@ -217,7 +219,7 @@ const styles = StyleSheet.create({
     width: 17 * vw,
   },
   BigCardMarkerContainer: {
-    width: 31 * vw,
+    width: 26.5 * vw,
     marginRight: -10,
   },
   SmallCardMarkerContainer: {
