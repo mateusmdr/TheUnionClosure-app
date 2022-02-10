@@ -1,14 +1,13 @@
 {
   "expo": {
-    "name": "theUnionClosure",
-    "slug": "Fechamento The Union",
+    "name": "TheUnionClosure",
+    "slug": "TheUnionClosure-app",
     "version": "2.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
-    "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#572074"
     },
     "updates": {
@@ -18,13 +17,18 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.autenlab.theunionclosure-app",
+      "icon": "./assets/icon_ios.png"
     },
     "android": {
+      "icon": "./assets/icon_android.png",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptiveForeground.png",
         "backgroundImage": "./assets/adaptiveBackground.png"
-      }
+      },
+      "userInterfaceStyle": "light",
+      "package": "com.autenlab.theunionclosure"
     }
   }
 }

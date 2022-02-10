@@ -20,7 +20,6 @@ const Main = ({availableDates, setCurrentPage, setDate, date, data}) => {
             </View>
             <View style={styles.DatePicker}>
             <Picker
-                mode={'dropdown'}
                 selectedValue={date}
                 onValueChange={item =>{
 					setDate(item);
@@ -28,13 +27,19 @@ const Main = ({availableDates, setCurrentPage, setDate, date, data}) => {
 				}}
                 style={styles.DatePickerText}
                 dropdownIconColor={colors.DatePicker}
+				itemStyle={styles.PickerItem}
             >    
-                <Picker.Item enabled={false} key="placeholder" label={"Selecione uma data:"} value={null}/>
+                <Picker.Item 
+					enabled={false} key="placeholder"
+					label={"Selecione uma data:"}
+					value={null}
+
+				/>
                 {availableDates.sort((a,b) => a<b ? 1 : -1).map((item) => {
                 return(
                     <Picker.Item 
                     	key={new Date(item).toISOString()}
-                    	label={dateFormat(item,'dd/mm/yy')}
+                    	label={dateFormat(item,'dd/mm/yyyy')}
                     	value={new Date(item).toISOString()} 
                     />
                 );
@@ -44,7 +49,7 @@ const Main = ({availableDates, setCurrentPage, setDate, date, data}) => {
             {data && <FlatList
             style={styles.CardList}
             data={(data.bigCards).concat(data.smallCards)}
-            renderItem={({item, index}) => {
+            renderItem={({item}) => {
                 if(data.bigCards.indexOf(item) !== -1) {
                 return (
                     <Card 

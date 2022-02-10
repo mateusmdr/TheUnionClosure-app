@@ -1,4 +1,4 @@
-import {StyleSheet, Dimensions, StatusBar} from 'react-native';
+import {StyleSheet, Dimensions, StatusBar, Platform} from 'react-native';
 
 const window = Dimensions.get('window');
 
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   MainBackgroundLoaded: {
     backgroundColor: colors.MainBackground,
     width: 100 * vw,
-    height: 60.5 * vh,
+    height: Platform.OS === 'ios' ? undefined : 60.5 * vh,
     position: 'absolute',
   },
   MainBackgroundUnloaded: {
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   TitleContainerLoaded: {
-    paddingTop: 8 * vh,
+    paddingTop: Platform.OS === 'ios' ? 3*vh : 8 * vh,
   },
   TitleContainerUnloaded: {
     paddingTop: 25 * vh,
@@ -134,12 +134,17 @@ const styles = StyleSheet.create({
     color: colors.DatePicker,
     width: 72 * vw,
     alignSelf: 'center',
-    marginBottom: 20,
+    marginBottom: Platform.OS === 'ios' ? 10 : 20,
+    height: Platform.OS === 'ios' ? 10*vh : undefined
   },
   DatePickerText: {
     color: colors.DatePickerText,
-    fontSize: 15,
+    fontSize: Platform.OS === 'ios' ? 12 : 15,
     textAlign: 'center',
+    height: Platform.OS === 'ios' ? 10*vh : undefined
+  },
+  PickerItem: {
+    color: 'white',
   },
   CardList: {
     width: 100 * vw,
