@@ -1,14 +1,15 @@
 {
   "expo": {
-    "name": "expo-migrate",
-    "slug": "expo-migrate",
-    "version": "1.0.0",
+    "name": "theUnionClosure",
+    "slug": "Fechamento The Union",
+    "version": "2.0",
     "orientation": "portrait",
+    "userInterfaceStyle": "light",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#572074"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -21,12 +22,9 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./assets/adaptiveForeground.png",
+        "backgroundImage": "./assets/adaptiveBackground.png"
       }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
     }
   }
 }

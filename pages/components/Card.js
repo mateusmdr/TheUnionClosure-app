@@ -30,31 +30,31 @@ const colorStyle = (title, description) => {
 
 const Card = ({title, sources, total, isBig}) => {
     return (
-      <View style={props.isBig ? styles.BigCard : styles.SmallCard}>
-        <Text style={styles.CardTitle}>{props.title}</Text>
+      <View style={isBig ? styles.BigCard : styles.SmallCard}>
+        <Text style={styles.CardTitle}>{title}</Text>
         <View>
-          {Object.entries(props.sources).map(([key, source]) => {
+          {Object.entries(sources).map(([key, source]) => {
             return (
               <View key={key} style={styles.BigCardContentRow}>
                 <View style={styles.CardDescriptionContainer}>
                   <Text style={styles.CardDescription}>{source.description}</Text>
                 </View>
                 <View>
-                  <Text style={colorStyle(props.title, source.description)}>
+                  <Text style={colorStyle(title, source.description)}>
                     R$
                   </Text>
                 </View>
                 <View
                   style={
-                    props.isBig
+                    isBig
                       ? styles.BigCardValueContainer
                       : styles.SmallCardValueContainer
                   }>
-                  <Text style={colorStyle(props.title, source.description)}>
+                  <Text style={colorStyle(title, source.description)}>
                     {source.value}
                   </Text>
                 </View>
-                {props.isBig && (
+                {isBig && (
                   <View style={styles.CardPercentageContainer}>
                     <Text style={styles.CardPercentageText}>
                       {source.percentage}
@@ -69,39 +69,39 @@ const Card = ({title, sources, total, isBig}) => {
             <View />
             <View
               style={
-                props.isBig
+                isBig
                   ? styles.BigCardMarkerContainer
                   : styles.SmallCardMarkerContainer
               }>
               <Text style={styles.CardMarkerText}>............</Text>
             </View>
-            {props.isBig && <View style={styles.CardPercentageContainer} />}
+            {isBig && <View style={styles.CardPercentageContainer} />}
           </View>
           <View key={'total'} style={styles.BigCardContentRow}>
             <View style={styles.CardDescriptionContainer}>
               <Text style={styles.CardDescription}>
-                {props.total.description}
+                {total.description}
               </Text>
             </View>
             <View>
-              <Text style={colorStyle(props.title, props.total.description)}>
+              <Text style={colorStyle(title, total.description)}>
                 R$
               </Text>
             </View>
             <View
               style={
-                props.isBig
+                isBig
                   ? styles.BigCardValueContainer
                   : styles.SmallCardValueContainer
               }>
-              <Text style={colorStyle(props.title, props.total.description)}>
-                {props.total.value}
+              <Text style={colorStyle(title, total.description)}>
+                {total.value}
               </Text>
             </View>
-            {props.isBig && (
+            {isBig && (
               <View style={styles.CardPercentageContainer}>
                 <Text style={styles.CardPercentageText}>
-                  {props.total.percentage}
+                  {total.percentage}
                 </Text>
               </View>
             )}

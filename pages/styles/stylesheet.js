@@ -1,4 +1,4 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import {StyleSheet, Dimensions, StatusBar} from 'react-native';
 
 const window = Dimensions.get('window');
 
@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
   SafeAreaView: {
     width: 100 * vw,
     minHeight: 100 * vh,
+    marginTop: StatusBar.currentHeight
   },
   LinearGradient: {
     width: 100 * vw,

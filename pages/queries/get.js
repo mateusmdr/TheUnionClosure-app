@@ -17,7 +17,6 @@ const authHeaders = ({token}) => {
     headers.append('Accept','application/json');
     headers.append('Content-Type','application/json');
     headers.append('Authorization', `Bearer ${token}`);
-
     return headers;
 }
 
@@ -36,25 +35,26 @@ const getToken = async () => {
   if(response.ok){
     const token = (await response.json()).token;
     return token;
+  }else {
+    console.error(JSON.stringify(response));
   }
-
-  throw response.status;
 }
 
 const getAvailableDates = async () => {
   const token = await getToken();
   const response = await fetch(
-    queryString({method: 'v1/xFechamentoDatas'}),
+    queryString({method: 'v1/xFechamentoDatas', params: {id_agente: -1}}),
     {
         method: 'GET',
         headers: authHeaders({token})
     }
   );
-  if(response.status===200){
+  if(response.ok){
     const availableDates = await response.json();
     return availableDates.map((item) => (new Date(item.datas)).valueOf());
+  }else {
+    console.error(JSON.stringify(response));
   }
-  throw response.status;
 }
 
 const getOperacionalTotal = async (token, date) => {
@@ -65,26 +65,28 @@ const getOperacionalTotal = async (token, date) => {
         headers: authHeaders({token})
     }
   );
-  if(response.status===200){
+  if(response.ok){
     const operacionalTotal = await response.json();
     return operacionalTotal;
+  }else {
+    console.error(JSON.stringify(response));
   }
-  throw response.status;
 }
 
 const getOperacionalReceita = async (token, date) => {
-  const response = await fetch(
-    queryString({method: 'v1/xOperacionalReceita', params: {data: date}}),
-    {
-        method: 'GET',
-        headers: authHeaders({token})
-    }
-  );
-  if(response.status===200){
-    const operacionalReceita = await response.json();
-    return operacionalReceita;
-  }
-  throw response.status;
+	const response = await fetch(
+	queryString({method: 'v1/xOperacionalReceita', params: {data: date}}),
+	{
+		method: 'GET',
+		headers: authHeaders({token})
+	}
+	);
+	if(response.ok){
+		const operacionalReceita = await response.json();
+		return operacionalReceita;
+	}else {
+		console.error(JSON.stringify(response));
+	}
 }
 
 const getOperacionalDespesas = async (token,date) => {
@@ -95,11 +97,12 @@ const getOperacionalDespesas = async (token,date) => {
         headers: authHeaders({token})
     }
   );
-  if(response.status===200){
+  if(response.ok){
     const operacionalDespesas = await response.json();
     return operacionalDespesas;
+  }else {
+    console.error(JSON.stringify(response));
   }
-  throw response.status;
 }
 
 const getOperacionalDespesasClube = async (token,date) => {
@@ -110,11 +113,12 @@ const getOperacionalDespesasClube = async (token,date) => {
         headers: authHeaders({token})
     }
   );
-  if(response.status===200){
+  if(response.ok){
     const operacionalDespesasClube = await response.json();
     return operacionalDespesasClube;
+  }else {
+    console.error(JSON.stringify(response));
   }
-  throw response.status;
 };
 
 const getRakeTotal = async (token,date) => {
@@ -125,23 +129,26 @@ const getRakeTotal = async (token,date) => {
         headers: authHeaders({token})
     }
   );
-  if(response.status===200){
+  if(response.ok){
     const rakeTotal = (await response.json())[0].xrake_total;
     return rakeTotal;
+  }else {
+    console.error(JSON.stringify(response));
   }
-  throw response.status;
 };
 
 const formatCurrency = (value) => {
-  const converted = Number(value);
-  if (converted === 0) return '-';
+	if(!value) return '-';
+	const converted = Number(value);
+	if (converted === 0) return '-';
 
-  return (converted.toFixed(2).toString().replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
+	return (converted.toFixed(2).toString().replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
 }
 
 const formatPercentage = (value) => {
-  const converted = Number(value);
-  return ((converted.toFixed(2) + '%')).replace('.',',');
+	if(!value) return ''
+	const converted = Number(value);
+	return ((converted.toFixed(2) + '%')).replace('.',',');
 }
 
 const getData = async (date) => {
@@ -153,31 +160,29 @@ const getData = async (date) => {
   const operacionalDespesas = await getOperacionalDespesas(token, date);
   const operacionalDespesasClube = await getOperacionalDespesasClube(token, date);
   const rakeTotal = await getRakeTotal(token,date);
-
   let clubs = operacionalDespesasClube.map((item) => item.clube)
     .filter((value, index, self) => self.indexOf(value) === index);
 
   let briefDescriptions = (operacionalDespesasClube.map((item) => item.descricao)
-  .filter((value, index, self) => self.indexOf(value) === index));
-  
+  	.filter((value, index, self) => self.indexOf(value) === index));
+
   const briefSources = briefDescriptions.map((description)=> {
     return {
       description: description,
       value: operacionalDespesasClube.filter((item) => item.descricao === description)
         .map((item) => item.valor)
-        .reduce(sum),
+        .reduce(sum, 0),
       percentage: ''
     }
   });
-
-  const data = {
+  const data ={
     bigCards: [
       {
         title: 'Total', sources:[
-          {description: operacionalTotal[0].descritivo, value: formatCurrency(operacionalTotal[0].valor), percentage: ""},
-          {description: operacionalTotal[1].descritivo, value: formatCurrency(operacionalTotal[1].valor), percentage: ""}
+          {description: operacionalTotal[0]?.descritivo, value: formatCurrency(operacionalTotal[0]?.valor), percentage: ""},
+          {description: operacionalTotal[1]?.descritivo, value: formatCurrency(operacionalTotal[1]?.valor), percentage: ""}
         ],
-        total: {description: "", value: formatCurrency(operacionalTotal[2].valor), percentage: formatPercentage(operacionalTotal[3].valor)}
+        total: {description: "", value: formatCurrency(operacionalTotal[0]?.valor + operacionalTotal[1]?.valor), percentage: formatPercentage(operacionalTotal[3]?.valor)}
       },
       {
         title: 'Receita', sources: (
@@ -185,7 +190,7 @@ const getData = async (date) => {
             return {description: obj.clube, value: formatCurrency(obj.rake), percentage: ""}
           })
         ),
-        total: {description: '', value: formatCurrency(operacionalTotal[0].valor), percentage: ''}
+        total: {description: '', value: formatCurrency(operacionalTotal[0]?.valor), percentage: ''}
       },
       {
         title: 'Despesas', sources: (
@@ -199,10 +204,10 @@ const getData = async (date) => {
         ),
         total: {
           description: '',
-          value: formatCurrency(operacionalTotal[1].valor),
+          value: formatCurrency(operacionalTotal[1]?.valor),
           percentage: formatPercentage((Number(
             operacionalDespesas.map((item) => item.rake)
-              .reduce(sum)
+              .reduce(sum,0)
           )/rakeTotal * 100).toString())
         }
       }
@@ -221,7 +226,7 @@ const getData = async (date) => {
             value: formatCurrency(
               operacionalDespesasClube.filter((item) => item.clube === club)
                 .map((item) => item.valor)
-                .reduce(sum))
+                .reduce(sum, 0))
             , percentage: ''}
         }
       })
@@ -239,13 +244,14 @@ const getData = async (date) => {
           description: '',
           value: formatCurrency(
             briefSources.map((item) => item.value)
-              .reduce(sum)
+              .reduce(sum,0)
           ),
           percentage: ''
         }
       }]
     )
-  }
+  };
+
   return data;
 };
 

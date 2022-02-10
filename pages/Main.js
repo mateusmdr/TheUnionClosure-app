@@ -1,14 +1,16 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
 import {View, Text, FlatList} from 'react-native';
+import {Picker} from '@react-native-picker/picker';
 
 import Page from './components/Page';
 import Header from './components/Header';
 import Card from './components/Card';
 
-import {styles} from './styles/stylesheet';
+import dateFormat from 'dateformat';
 
-const Main = ({availableDates, setCurrentPage}) => {
-    const [data, setData] = useState(null);
+import {styles, colors} from './styles/stylesheet';
+
+const Main = ({availableDates, setCurrentPage, setDate, date, data}) => {
     return(
         <Page>
             <View style={data ? styles.MainBackgroundLoaded : styles.MainBackgroundUnloaded}/>
@@ -17,33 +19,27 @@ const Main = ({availableDates, setCurrentPage}) => {
             <Text style={styles.MainText}>Fechamento PPPOKER</Text>
             </View>
             <View style={styles.DatePicker}>
-            {/* <Picker
+            <Picker
                 mode={'dropdown'}
                 selectedValue={date}
-                onValueChange={async (itemValue, itemIndex) =>{
-                try{
-                    setData(null);
-                    setDate(itemValue);
-                    switchPage('loading');
-                }catch(e){
-                    Alert.alert("Não foi possível obter ou formatar os dados do servidor:\n" + e.message);
-                    console.error(e);
-                }
-                }}
+                onValueChange={item =>{
+					setDate(item);
+					setCurrentPage('loading');
+				}}
                 style={styles.DatePickerText}
                 dropdownIconColor={colors.DatePicker}
             >    
-                <Picker.Item enabled={false} key="placeholder" label={"Selecione uma data:"} value="placeholder"/>
-                {availableDates.map((item) => {
+                <Picker.Item enabled={false} key="placeholder" label={"Selecione uma data:"} value={null}/>
+                {availableDates.sort((a,b) => a<b ? 1 : -1).map((item) => {
                 return(
                     <Picker.Item 
-                    key={new Date(item).toISOString()}
-                    label={dateFormat(item,"dd/mm/yyyy")}
-                    value={new Date(item).toISOString()} 
+                    	key={new Date(item).toISOString()}
+                    	label={dateFormat(item,'dd/mm/yy')}
+                    	value={new Date(item).toISOString()} 
                     />
                 );
                 })}
-            </Picker> */}
+            </Picker>
             </View>
             {data && <FlatList
             style={styles.CardList}
